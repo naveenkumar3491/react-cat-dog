@@ -14,23 +14,28 @@ var buttonStyle = {
     marginRight: '5px'
 }
 
-class PetComponent extends React.Component{
-
-    constructor(props){
-        super(props);
+var PetComponent = function (props) {
+    var disabled = false;
+    if (props.result !== '') {
+        var resultsStyle = null;
+        if (props.result === 'Looser') {
+            resultsStyle = { color: 'red' }
+        } else {
+            resultsStyle = { color: 'green' }
+        }
+        disabled = true;
     }
-    render(){
-        return(
-            <div style={compStyle}>
-                <h3>{this.props.petName} Likes: {this.props.likesCount}</h3>
-                <img src={this.props.petImageUrl}
-                    alt={"Cute "+this.props.petName} style={{width:300, height: 300}}/>
-                    <br />
-                <button style={buttonStyle} value= {this.props.petName} onClick={this.props.onLikeBtnClick}>Like</button>
-                <button style={buttonStyle} value= {this.props.petName} onClick={this.props.onDislikeBtnClick}>Dislike</button>
-            </div>
-        );
-    }
+    return (
+        <div style={compStyle}>
+            <h2 style={resultsStyle}>{props.result}</h2>
+            {(props.result) ? <h3>{props.petName} Likes: {props.likesCount}</h3> : <h3>{props.petName}</h3>}
+            <img src={props.petImageUrl}
+                alt={"Cute " + props.petName} style={{ width: 300, height: 300 }} />
+            <br />
+            <button style={buttonStyle} value={props.petName} disabled={disabled} onClick={props.onLikeBtnClick}>Like</button>
+            <button style={buttonStyle} value={props.petName} disabled={disabled} onClick={props.onDislikeBtnClick}>Dislike</button>
+        </div>
+    );
 }
 
 module.exports = PetComponent;
