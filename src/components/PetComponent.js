@@ -1,5 +1,5 @@
 var React = require('react');
-
+var constants = require('../constants');
 var compStyle = {
     display: 'inline-block',
     marginLeft: 'auto',
@@ -14,11 +14,14 @@ var buttonStyle = {
     marginRight: '5px'
 }
 
+var LOSER = constants.LOSER;
+var CUTE = constants.CUTE;
+
 var PetComponent = function (props) {
     var disabled = false;
     if (props.result !== '') {
         var resultsStyle = null;
-        if (props.result === 'Looser') {
+        if (props.result === LOSER) {
             resultsStyle = { color: 'red' }
         } else {
             resultsStyle = { color: 'green' }
@@ -30,7 +33,7 @@ var PetComponent = function (props) {
             <h2 style={resultsStyle}>{props.result}</h2>
             {(props.result) ? <h3>{props.petName} Likes: {props.likesCount}</h3> : <h3>{props.petName}</h3>}
             <img src={props.petImageUrl}
-                alt={"Cute " + props.petName} style={{ width: 300, height: 300 }} />
+                alt={CUTE+ ' ' + props.petName} style={{ width: 300, height: 300 }} />
             <br />
             <button style={buttonStyle} value={props.petName} disabled={disabled} onClick={props.onLikeBtnClick}>Like</button>
             <button style={buttonStyle} value={props.petName} disabled={disabled} onClick={props.onDislikeBtnClick}>Dislike</button>
